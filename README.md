@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+# Truth & Dare Premium PWA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A highly polished, interactive Truth or Dare web application designed built meticulously with React, Framer Motion, and Tailwind CSS. The application features a native application feel with a dynamic glassmorphism UI overlay on smooth, mood-responsive gradients.
 
-Currently, two official plugins are available:
+## 🌟 Features
+- **Two Unique Scenarios**: Group mode for lighthearted fun, and Couple mode with deep, moody, and highly explicit aesthetics and prompts.
+- **Virtual Mode**: Play over video chat seamlessly. Toggling Virtual Mode triggers a global theme shift to an atmospheric Cyberpunk Indigo to clearly reflect remote play.
+- **Interactive Physics Bottle Spin**: Tap the centerpiece vodka-style bottle graphics to launch a Framer Motion spring-physics based spinner that lands decisively on an interactive player badge.
+- **Smart Shuffled Questions**: Over *900 natively-embedded unique prompts* managed via a custom Shuffled Deck System. No repetitive database lookups, out-of-bounds errors, or repeating questions during the same game loop!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Built With
+- **React.js (Vite)**
+- **Tailwind v4 (CSS)** - Utilized strictly through modern utility pipelines for the UI.
+- **Zustand** - Seamless, hyper-fast local state management handling lobby states, routing layers, and player configuration lists globally.
+- **Framer Motion** - Drives complex physics spinning, UI appearance scales, layout transitions, and presence unmounting automatically.
+- **Lucide React** - Vector iconography
 
-## React Compiler
+## 🏁 How To Play
+1. Enter your names (Group requires 2+, Couple requires exactly 2).
+2. Choose **Group Mode** or **Couple Mode**.
+3. Toggle **Virtual** if you are playing via Discord/Zoom.
+4. **Tap the Bottle to Spin!**
+5. Select **Truth** or **Dare**. Or bail out and hit the glass skip button to take a Shot 🥃. 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠 Usage
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Build for Production
+```bash
+npm run build
 ```
