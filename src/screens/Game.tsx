@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { getRandomQuestion } from '../data/questions';
 import { Bottle } from '../components/Bottle';
+import { useShake } from '../hooks/useShake';
 
 export const Game = () => {
     const { mode, isVirtual, players, gameState, activePlayerIndex, currentPrompt, currentType, spinBottle, setPrompt, completeTurn, endGame } = useGameStore();
@@ -13,6 +14,16 @@ export const Game = () => {
     const handleSpin = () => {
         spinBottle();
     };
+
+    // Shake to spin!
+    useShake(() => {
+        if (gameState === 'spinning') {
+            if (typeof navigator !== 'undefined' && navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            handleSpin();
+        }
+    });
 
     // When game enters choosing state, wait for bottle to finish rotating
     useEffect(() => {
@@ -81,7 +92,7 @@ export const Game = () => {
                             initial={{ x, y, scale: 0, opacity: 0 }}
                             animate={{ x, y, scale: isActive ? 1.2 : 1, opacity: isActive ? 1 : 0.6 }}
                             className={`absolute transition-colors font-outfit font-bold px-3 py-1 rounded-full whitespace-nowrap
-                ${isActive ? (isGroup ? 'text-group-blue bg-white/10' : 'text-couple-gold bg-white/10') : 'text-white/50'}
+                ${isActive ? (mode === 'steamy' ? 'text-steamy-main bg-steamy-main/10 shadow-[0_0_15px_rgba(255,77,0,0.3)]' : isGroup ? 'text-group-blue bg-white/10' : 'text-couple-gold bg-white/10') : 'text-white/50'}
               `}
                         >
                             {p.name}
@@ -106,8 +117,8 @@ export const Game = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="absolute bottom-20 z-20"
                 >
-                    <span className="text-white/50 font-inter tracking-widest uppercase text-sm animate-pulse">
-                        Tap Bottle to Spin
+                    <span className={`font-inter tracking-widest uppercase text-sm animate-pulse ${mode === 'steamy' ? 'text-steamy-main' : 'text-white/50'}`}>
+                        Tap or Shake to Spin
                     </span>
                 </motion.div>
             )}
@@ -120,17 +131,22 @@ export const Game = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 50, transition: { duration: 0.2 } }}
                         transition={{ delay: 1.5 }} // delay for spin to finish
-                        className="absolute bottom-10 inset-x-4 glass-panel p-6 rounded-3xl flex flex-col items-center gap-4 z-30"
+                        className={`absolute bottom-10 inset-x-4 glass-panel p-6 rounded-3xl flex flex-col items-center gap-4 z-30 ${mode === 'steamy' ? 'border-steamy-accent/30 shadow-[0_0_30px_rgba(255,77,0,0.1)]' : ''}`}
                     >
-                        <h3 className="text-2xl font-poppins font-bold text-center">
+                        <h3 className={`text-2xl font-poppins font-bold text-center ${mode === 'steamy' ? 'text-white' : ''}`}>
                             {activePlayer?.name}'s Turn
                         </h3>
                         <div className="flex gap-4 w-full justify-center">
-                            <button onClick={() => handleSelection('truth')} className={`flex-1 py-4 text-xl font-bold rounded-2xl bg-gradient-to-br border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-lg ${isGroup ? 'from-group-blue/80 to-blue-600 shadow-group-blue/30 text-white' : 'from-couple-gold/80 to-yellow-600 shadow-couple-gold/30 text-black'}`}>
-                                Truth
-                            </button>
-                            <button onClick={() => handleSelection('dare')} className={`flex-1 py-4 text-xl font-bold rounded-2xl bg-gradient-to-br border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-lg ${isGroup ? 'from-group-pink/80 to-pink-600 shadow-group-pink/30 text-white' : 'from-couple-crimson/80 to-red-900 shadow-couple-crimson/30 text-white'}`}>
-                                Dare
+                            {mode !== 'steamy' && (
+                                <button onClick={() => handleSelection('truth')} className={`flex-1 py-4 text-xl font-bold rounded-2xl bg-gradient-to-br border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-lg ${isGroup ? 'from-group-blue/80 to-blue-600 shadow-group-blue/30 text-white' : 'from-couple-gold/80 to-yellow-600 shadow-couple-gold/30 text-black'}`}>
+                                    Truth
+                                </button>
+                            )}
+                            <button onClick={() => handleSelection('dare')} className={`flex-1 py-4 text-xl font-bold rounded-2xl bg-gradient-to-br border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-lg 
+                                ${mode === 'steamy' 
+                                    ? 'from-steamy-main to-steamy-secondary shadow-steamy-main/30 text-white' 
+                                    : isGroup ? 'from-group-pink/80 to-pink-600 shadow-group-pink/30 text-white' : 'from-couple-crimson/80 to-red-900 shadow-couple-crimson/30 text-white'}`}>
+                                {mode === 'steamy' ? 'Perform Dare 🔥' : 'Dare'}
                             </button>
                         </div>
                     </motion.div>
@@ -146,13 +162,13 @@ export const Game = () => {
                         exit={{ opacity: 0, y: '100%' }}
                         transition={{ type: "spring", damping: 20 }}
                         className={`absolute inset-0 z-40 p-6 flex flex-col justify-center items-center text-center
-              ${isGroup ? 'bg-gradient-to-br from-group-blue/20 to-group-pink/20 backdrop-blur-3xl' : 'bg-gradient-to-br from-couple-crimson/20 to-black/80 backdrop-blur-3xl'}
+              ${mode === 'steamy' ? 'bg-gradient-to-br from-steamy-accent/20 via-steamy-dark to-black/95 backdrop-blur-3xl' : isGroup ? 'bg-gradient-to-br from-group-blue/20 to-group-pink/20 backdrop-blur-3xl' : 'bg-gradient-to-br from-couple-crimson/20 to-black/80 backdrop-blur-3xl'}
             `}
                     >
                         <span className={`text-sm tracking-widest uppercase font-bold mb-4
-              ${currentType === 'truth' ? (isGroup ? 'text-group-blue' : 'text-couple-gold') : currentType === 'dare' ? (isGroup ? 'text-group-pink' : 'text-couple-crimson') : 'text-orange-400'}`
+              ${mode === 'steamy' ? 'text-steamy-main' : currentType === 'truth' ? (isGroup ? 'text-group-blue' : 'text-couple-gold') : currentType === 'dare' ? (isGroup ? 'text-group-pink' : 'text-couple-crimson') : 'text-orange-400'}`
                         }>
-                            {currentType}
+                            {mode === 'steamy' ? 'Steamy Dare' : currentType}
                         </span>
                         <h2 className="text-4xl md:text-5xl font-outfit font-bold text-white mb-12 drop-shadow-md leading-tight">
                             {currentPrompt}

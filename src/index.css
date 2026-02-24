@@ -8,6 +8,10 @@
     touch-action: manipulation;
     user-select: none;
     -webkit-user-select: none;
+    background-color: black;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 

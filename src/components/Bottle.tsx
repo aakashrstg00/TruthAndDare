@@ -30,7 +30,7 @@ export const Bottle = ({ rotation }: BottleProps) => {
             <img
                 src={bottleImg}
                 alt="Bottle"
-                className="w-64 h-auto object-contain drop-shadow-2xl"
+                className="w-56 h-auto object-contain drop-shadow-2xl"
                 style={{ filter: 'drop-shadow(0px 10px 20px rgba(0,0,0,0.5))' }}
             />
         </motion.div>

@@ -26,8 +26,19 @@ export default {
           gradientStart: '#0f0c29',
           gradientMid: '#302b63',
           gradientEnd: '#24243e'
-        }
-      }
+        },
+        'steamy-main': '#ff4d00',
+        'steamy-secondary': '#cc0000',
+        'steamy-accent': '#ff0033',
+        'steamy-dark': '#1a0500',
+      },
+      extend: {
+        fontFamily: {
+          outfit: ['Outfit', 'sans-serif'],
+          poppins: ['Poppins', 'sans-serif'],
+          inter: ['Inter', 'sans-serif'],
+        },
+      },
     },
   },
   plugins: [],

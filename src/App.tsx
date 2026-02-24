@@ -33,10 +33,13 @@ function App() {
       return isVirtual
         ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/50 via-[#130b2e] to-black'
         : 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black';
-    } else {
+    } else if (mode === 'couple') {
       return isVirtual
         ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-900/40 via-[#260f1b] to-black'
         : 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-900/20 via-black to-black';
+    } else {
+        // Steamy mode - intense heat theme
+        return 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-steamy-accent/20 via-steamy-dark to-black';
     }
   };
 

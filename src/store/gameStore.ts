@@ -1,4 +1,4 @@
-export type GameMode = 'group' | 'couple';
+export type GameMode = 'group' | 'couple' | 'steamy';
 export type GameState = 'splash' | 'setup' | 'spinning' | 'choosing' | 'performing';
 
 export interface Player {
@@ -41,7 +41,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
     currentType: null,
     history: [],
 
-    setMode: (mode) => set({ mode }),
+    setMode: (mode) => {
+        if (mode === 'steamy') {
+            set({ mode, isVirtual: false });
+        } else {
+            set({ mode });
+        }
+    },
     setVirtual: (isVirtual) => set({ isVirtual }),
     setGameState: (gameState) => set({ gameState }),
 
