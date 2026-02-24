@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { Users, Heart, Flame } from 'lucide-react';
+import { VERSION, BUILD_NUMBER } from '../version';
 
 export const Splash = () => {
     const { setMode, setGameState, isVirtual, setVirtual } = useGameStore();
@@ -85,6 +86,15 @@ export const Splash = () => {
                     </button>
                 </div>
             </motion.div>
+
+            <motion.footer
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 1 }}
+                className="mt-auto text-white/30 text-[10px] font-inter tracking-widest uppercase"
+            >
+                v{VERSION} ({BUILD_NUMBER})
+            </motion.footer>
         </div>
     );
 };

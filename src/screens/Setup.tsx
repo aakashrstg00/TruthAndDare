@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { UserPlus, X, Play, ChevronLeft } from 'lucide-react';
+import { VERSION, BUILD_NUMBER } from '../version';
 
 export const Setup = () => {
     const { mode, players, addPlayer, removePlayer, startGame, setGameState } = useGameStore();
@@ -120,6 +121,10 @@ export const Setup = () => {
                     Let's Play
                 </button>
             </motion.div>
+
+            <footer className="mt-8 text-center text-white/20 text-[10px] font-inter tracking-widest uppercase pb-2">
+                v{VERSION} ({BUILD_NUMBER})
+            </footer>
         </div>
     );
 };
