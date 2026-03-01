@@ -552,6 +552,7 @@ export const questions = {
                 "Take off one article of clothing, but keep it mostly out of frame to tease me.",
                 "Unbutton your shirt or adjust your top for the camera slowly.",
                 "Moan my name into the microphone softly.",
+                "Send an audio to the partner, saying their name while doing 15 pushups.",
                 "Pinch your own nipple while looking right at the camera.",
                 "Kiss the camera lens playfully.",
                 "Show me your neck and trace exactly where you want me to kiss it.",
