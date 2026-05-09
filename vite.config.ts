@@ -7,6 +7,7 @@ export default defineConfig({
         react(), VitePWA(
             {
                 registerType: 'autoUpdate',
+                devOptions: { enabled: true },
                 includeAssets: ['logo.svg'],
                 manifest: {
                     name: 'Truth & Dare - Premium Edition',
